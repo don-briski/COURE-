@@ -1,0 +1,16 @@
+  <div class="card">
+
+    <div class="card-container" *ngFor="let item of products">
+      <div class="img-container">
+          <img class="img" src="assets/img/image.jpg"  alt="img" >
+      </div>
+      <div class="card-details">
+        <p class="card-title">{{item.name}}</p>
+        <p class="card-description">{{item.description}}</p>
+        <div class="actions">
+          <mat-button id="edit" (click)="editProduct(item)" matRipple>Edit</mat-button>
+          <mat-button id="delete" (click)="deleteProduct(item.id)" matRipple>Delete</mat-button>
+        </div>
+      </div>
+    </div>
+  </div>

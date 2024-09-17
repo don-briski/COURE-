@@ -1,0 +1,34 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "Lexus",
+      "description": " A luxury brand of toyota that is manufactured in japan"
+    },
+    {
+      "id": "2",
+      "name": "Mercedes",
+      "description": "A luxury product of benz cars produced in germany. it is names after the only daughter of carl benz the founder of benz motor"
+    },
+    {
+      "id": "2",
+      "name": "Rolls Royce",
+      "description": "A luxury American car produced foth the first class citizen and people with exquisite taste."
+    },
+    {
+      "id": "021a",
+      "name": "joy",
+      "description": "a sweet soul jolly for the reinvention of the very essence of exhilarating experience of life"
+    },
+    {
+      "id": "6075",
+      "name": "joe bugie",
+      "description": "a jon snow product for winter fell"
+    },
+    {
+      "id": "6334",
+      "name": "test producr",
+      "description": "just testing the last one"
+    }
+  ]
+}

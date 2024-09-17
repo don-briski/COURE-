@@ -1,0 +1,51 @@
+<div class="home-section">
+
+  <div class="bold"> LENDASTACK ASSESSMENT</div>
+  <div class="header">
+    <div>
+      <button class="create-item" matRipple (click)="createProduct()">
+        create product <span> <mat-icon>add_circle_outline</mat-icon></span>
+      </button>
+    </div>
+
+    <div class="attribute-container">
+      <div class="search-container">
+        <mat-icon class="search-icon">search</mat-icon>
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Search product"
+          aria-label="Search"
+          (input)="searchProducts($event)"
+        />
+      </div>
+
+      <div class="view">
+        <button (click)="toggleView()">
+          <mat-icon>{{
+            currentView === "grid" ? "view_list" : "grid_on"
+          }}</mat-icon>
+          {{ currentView === "grid" ? "List View" : "Grid View" }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="grid" *ngIf="currentView === 'grid'">
+      <app-grid-view
+        [products]="filteredProducts"
+        (edit)="updateProduct($event)"
+        (delete)="deleteProduct($event)"
+      ></app-grid-view>
+    </div>
+
+    <div class="list" *ngIf="currentView === 'list'">
+      <app-list-view
+        [products]="filteredProducts"
+        (edit)="updateProduct($event)"
+        (delete)="deleteProduct($event)"
+      ></app-list-view>
+    </div>
+  </div>
+</div>
