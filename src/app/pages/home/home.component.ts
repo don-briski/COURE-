@@ -13,46 +13,51 @@ import { DeleteModalComponent } from '../../components/delete-modal/delete-modal
   standalone: true,
   imports: [SharedModule, ListViewComponent, GridViewComponent],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
-
   currentView: string = 'grid';
   products: any[] = [];
   filteredProducts: any[] = [];
 
   private productService = inject(ProductService);
   private dialog = inject(MatDialog);
-  private snackBar = inject(MatSnackBar)
+  private snackBar = inject(MatSnackBar);
 
   ngOnInit(): void {
-this.getProduct();
+    this.getProduct();
   }
 
-  getProduct () {
+  getProduct() {
     this.productService.getProducts().subscribe((data) => {
       this.products = data;
       this.filteredProducts = data;
+
+      // set Api response into session storage
+      sessionStorage.setItem('data', JSON.stringify(data));
+        // set Api response into local storage
+      localStorage.setItem("data", JSON.stringify(data))
     });
   }
 
   searchProducts(event: any): void {
     const searchTerm = event.target.value?.toLowerCase();
-    this.filteredProducts = this.products.filter(product =>
+    this.filteredProducts = this.products.filter((product) =>
       product.name?.toLowerCase().includes(searchTerm)
     );
   }
 
-
   createProduct(): void {
     const dialogRef = this.dialog.open(CreateRequestComponent, {
       width: '500px',
-      data: { isEdit: false }
+      data: { isEdit: false },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.snackBar.open('Product created successfully!', 'Close', { duration: 3000 });
+        this.snackBar.open('Product created successfully!', 'Close', {
+          duration: 3000,
+        });
         this.getProduct();
       }
     });
@@ -61,12 +66,14 @@ this.getProduct();
   updateProduct(product: any): void {
     const dialogRef = this.dialog.open(CreateRequestComponent, {
       width: '500px',
-      data: { isEdit: true, product}
+      data: { isEdit: true, product },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.snackBar.open('Product updated successfully!', 'Close', { duration: 3000 });
+        this.snackBar.open('Product updated successfully!', 'Close', {
+          duration: 3000,
+        });
         this.getProduct();
       }
     });
@@ -75,21 +82,29 @@ this.getProduct();
   deleteProduct(productId: string): void {
     const dialogRef = this.dialog.open(DeleteModalComponent, {
       width: '500px',
-      data: { productId }
+      data: { productId },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.productService.deleteProduct(productId).subscribe(() => {
-          this.snackBar.open('Product deleted successfully!', 'Close', { duration: 3000 });
-          this.getProduct();
-        }, error => {
-          this.snackBar.open('Failed to delete product. Try again later.', 'Close', { duration: 3000 });
-        });
+        this.productService.deleteProduct(productId).subscribe(
+          () => {
+            this.snackBar.open('Product deleted successfully!', 'Close', {
+              duration: 3000,
+            });
+            this.getProduct();
+          },
+          (error) => {
+            this.snackBar.open(
+              'Failed to delete product. Try again later.',
+              'Close',
+              { duration: 3000 }
+            );
+          }
+        );
       }
     });
   }
-
 
   setView(view: string): void {
     this.currentView = view;
@@ -98,6 +113,4 @@ this.getProduct();
   toggleView(): void {
     this.currentView = this.currentView === 'grid' ? 'list' : 'grid';
   }
-
-
 }

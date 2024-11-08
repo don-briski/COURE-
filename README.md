@@ -7,7 +7,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 Run `npm run start` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
 ## Development db
-
+use latest version of node (21) in cases when you experience npm bug while trying to run it.
 Run `npm run db` for a dev server. Navigate to `http://localhost:3000/`. this will automatically start the json server database.
 
 ## Code scaffolding
